@@ -13,6 +13,7 @@ const getEntry = () => {
 }
 
 export default defineConfig({
+  base: '/three-demo/dist/',
   build: {
     rollupOptions: {
       input: getEntry()
