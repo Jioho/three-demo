@@ -2,7 +2,6 @@ import '/assets/style/common.less'
 import dat from 'dat.gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper'
 
 const size = {
   width: window.innerWidth,
@@ -21,9 +20,12 @@ window.addEventListener('resize', () => {
 
 const canvas = document.querySelector('.webgl')
 const params = {
-  color: 0x9d6f3f,
-  metalness: 0.2,
-  roughness: 0
+  color: 0x522a0f,
+  metalness: 0.4,
+  roughness: 0,
+  ambientColor: 0xffffff,
+  directionalColor: 0xffffff,
+  pointColor: 0xffffff
 }
 const gui = new dat.GUI()
 
@@ -33,6 +35,18 @@ gui.addColor(params, 'color').onChange(() => {
   cone.material.color = color
   torus.material.color = color
 })
+gui.addColor(params, 'ambientColor').onChange(() => {
+  const color = new THREE.Color(params.ambientColor)
+  ambientLight.color = color
+})
+gui.addColor(params, 'directionalColor').onChange(() => {
+  const color = new THREE.Color(params.directionalColor)
+  directionalLight.color = color
+}).name('直射光颜色')
+gui.addColor(params, 'pointColor').onChange(() => {
+  const color = new THREE.Color(params.pointColor)
+  pointLight.color = color
+}).name('点光颜色')
 
 gui.add(params, 'metalness', 0, 1, 0.1).onChange(() => {
   cube.material.metalness = params.metalness
@@ -47,29 +61,29 @@ gui.add(params, 'roughness', 0, 1, 0.1).onChange(() => {
 
 const scene = new THREE.Scene()
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+const ambientLight = new THREE.AmbientLight(params.ambientColor, 0.9)
 scene.add(ambientLight)
 const ambientGroup = gui.addFolder('ambient')
-ambientGroup.add(ambientLight, 'intensity', -10, 10, 0.01)
+ambientGroup.add(ambientLight, 'intensity', 0, 50, 0.01)
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0)
+const directionalLight = new THREE.DirectionalLight(0xffffff, 5.2)
 
 const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight)
 directionalLightHelper.visible = false
 directionalLight.position.x = -6
-directionalLight.position.y = 0
-directionalLight.position.z = 0
+directionalLight.position.y = 5.3
+directionalLight.position.z = -0.4
 
 const directionalGroup = gui.addFolder('directional-light')
 directionalGroup.add(directionalLight.position, 'x', -10, 10, 0.1)
 directionalGroup.add(directionalLight.position, 'y', -10, 10, 0.1)
 directionalGroup.add(directionalLight.position, 'z', -10, 10, 0.1)
-directionalGroup.add(directionalLight, 'intensity', 0, 10, 0.1).name('灯光强度')
+directionalGroup.add(directionalLight, 'intensity', 0, 50, 0.1).name('灯光强度')
 directionalGroup.add(directionalLightHelper, 'visible')
 
 scene.add(directionalLight, directionalLightHelper)
 
-const pointLight = new THREE.PointLight(0xffffff, 2.66, -3.51)
+const pointLight = new THREE.PointLight(params.pointColor, 2.66, -3.51)
 pointLight.position.set(-3.5, 0.02, 0)
 scene.add(pointLight)
 
@@ -84,7 +98,7 @@ pointGroup.add(pointLight.position, 'x', -10, 10, 0.01)
 pointGroup.add(pointLight.position, 'y', -10, 10, 0.01)
 pointGroup.add(pointLight.position, 'z', -10, 10, 0.01)
 
-pointGroup.add(pointLight, 'intensity', -10, 10, 0.01)
+pointGroup.add(pointLight, 'intensity', 0, 10, 0.01)
 pointGroup.add(pointLight, 'distance', -10, 10, 0.01)
 pointGroup.add(pointLightHelper, 'visible')
 
@@ -119,7 +133,7 @@ cubeGroup.add(cube.rotation, 'z', -Math.PI * 2, Math.PI * 2, 0.01)
 
 scene.add(cube)
 
-const cone = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.3, 32), new THREE.MeshStandardMaterial({ color: params.color }))
+const cone = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.3, 64), new THREE.MeshStandardMaterial({ color: params.color }))
 cone.rotation.x = -0.3
 const coneGroup = gui.addFolder('cone')
 coneGroup.add(cone.rotation, 'x', -Math.PI * 2, Math.PI * 2, 0.01)
