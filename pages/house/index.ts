@@ -8,28 +8,44 @@ const size = {
   height: window.innerHeight
 }
 
+import door_alpha from './assets/door/alpha.jpg'
+import door_ambientOcclusion from './assets/door/ambientOcclusion.jpg'
+import door_color from './assets/door/color.jpg'
+import door_height from './assets/door/height.jpg'
+import door_metalness from './assets/door/metalness.jpg'
+import door_normal from './assets/door/normal.jpg'
+import door_roughness from './assets/door/roughness.jpg'
+import bricks_ambientOcclusion from './assets/bricks/ambientOcclusion.jpg'
+import bricks_color from './assets/bricks/color.jpg'
+import bricks_normal from './assets/bricks/normal.jpg'
+import bricks_roughness from './assets/bricks/roughness.jpg'
+import grass_ambientOcclusion from './assets/grass/ambientOcclusion.jpg'
+import grass_color from './assets/grass/color.jpg'
+import grass_normal from './assets/grass/normal.jpg'
+import grass_roughness from './assets/grass/roughness.jpg'
+
 const textureLoader = new THREE.TextureLoader()
 
 // 门板素材
-const alphaDoor = textureLoader.load('/house/door/alpha.jpg')
-const ambientOcclusionDoor = textureLoader.load('/house/door/ambientOcclusion.jpg')
-const colorDoor = textureLoader.load('/house/door/color.jpg')
-const heightDoor = textureLoader.load('/house/door/height.jpg')
-const metalnessDoor = textureLoader.load('/house/door/metalness.jpg')
-const normalDoor = textureLoader.load('/house/door/normal.jpg')
-const roughnessDoor = textureLoader.load('/house/door/roughness.jpg')
+const alphaDoor = textureLoader.load(door_alpha)
+const ambientOcclusionDoor = textureLoader.load(door_ambientOcclusion)
+const colorDoor = textureLoader.load(door_color)
+const heightDoor = textureLoader.load(door_height)
+const metalnessDoor = textureLoader.load(door_metalness)
+const normalDoor = textureLoader.load(door_normal)
+const roughnessDoor = textureLoader.load(door_roughness)
 
 // 墙壁素材
-const ambientOcclusionWall = textureLoader.load('/house/bricks/ambientOcclusion.jpg')
-const colorWall = textureLoader.load('/house/bricks/color.jpg')
-const normalWall = textureLoader.load('/house/bricks/normal.jpg')
-const roughnessWall = textureLoader.load('/house/bricks/roughness.jpg')
+const ambientOcclusionWall = textureLoader.load(bricks_ambientOcclusion)
+const colorWall = textureLoader.load(bricks_color)
+const normalWall = textureLoader.load(bricks_normal)
+const roughnessWall = textureLoader.load(bricks_roughness)
 
 // 草地
-const ambientOcclusionGrass = textureLoader.load('/house/grass/ambientOcclusion.jpg')
-const colorGrass = textureLoader.load('/house/grass/color.jpg')
-const normalGrass = textureLoader.load('/house/grass/normal.jpg')
-const roughnessGrass = textureLoader.load('/house/grass/roughness.jpg')
+const ambientOcclusionGrass = textureLoader.load(grass_ambientOcclusion)
+const colorGrass = textureLoader.load(grass_color)
+const normalGrass = textureLoader.load(grass_normal)
+const roughnessGrass = textureLoader.load(grass_roughness)
 
 ambientOcclusionGrass.repeat.set(6, 6)
 colorGrass.repeat.set(6, 6)
