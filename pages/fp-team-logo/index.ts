@@ -159,6 +159,7 @@ scene.add(cube)
 
 const cone = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.3, 64), new THREE.MeshStandardMaterial({ color: params.color }))
 cone.rotation.x = -0.3
+cone.position.x = -0.05
 const coneGroup = gui.addFolder('cone')
 coneGroup.add(cone.rotation, 'x', -Math.PI * 2, Math.PI * 2, 0.01)
 cone.material.metalness = params.metalness
